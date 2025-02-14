@@ -1,11 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import database from "@/infra/database";
 
-export default async function status(
+type ResponseData = {
+  message: string
+}
+
+export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<ResponseData>
 ) {
-  const result = await database.query("SELECT 1 + 1 as sum");
-  console.log(result.rows);
-  res.status(200).json({ message: 'Status' })
+  res.status(200).json({ message: 'Hello from Next.js!' })
 }

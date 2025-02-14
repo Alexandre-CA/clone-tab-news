@@ -6,6 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
+    "services:up":"docker compos e -f infra/docker-compose.yml up",
+    "services:stop":"docker compos e -f infra/docker-compose.yml stop",
+    "services:down":"docker compos e -f infra/docker-compose.yml down",
     "lint:check": "prettier --check .",
     "lint": "prettier --write .",
     "test": "jest"
