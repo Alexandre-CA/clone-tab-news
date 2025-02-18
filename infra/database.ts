@@ -9,8 +9,8 @@ async function query(queryObject: string | { text: string, values?: any[] }) {
         database: process.env.POSTGRES_DB,
         password: process.env.POSTGRES_PASSWORD,
     })
-    await client.connect()
     try {
+        await client.connect()
         result = await client.query(queryObject)
 
     } catch (error) {
