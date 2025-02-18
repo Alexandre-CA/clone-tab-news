@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack && npm run services:up",
+    "dev": "next dev --turbopack && run services:up",
     "build": "next build",
     "start": "next start",
     "services:up": "docker compose -f infra/compose.yaml up",

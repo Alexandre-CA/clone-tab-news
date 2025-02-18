@@ -1,6 +1,7 @@
-import { Client } from 'pg'
+import { Client, QueryResult } from 'pg'
 
-async function query(queryObject: string) {
+async function query(queryObject: string | { text: string, values?: any[] }) {
+    let result: QueryResult<any> = { rows: [] } as any
     const client = new Client({
         host: process.env.POSTGRES_HOST,
         port: Number(process.env.POSTGRES_PORT),
@@ -9,9 +10,16 @@ async function query(queryObject: string) {
         password: process.env.POSTGRES_PASSWORD,
     })
     await client.connect()
-    const result = await client.query(queryObject)
-    await client.end()
+    try {
+        result = await client.query(queryObject)
+
+    } catch (error) {
+        console.error(error)
+    } finally {
+        await client.end()
+    }
     return result
+
 }
 
 const database = {
