@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack && docker compose -f infra/compose.yaml up",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "services:up": "docker compose -f infra/compose.yaml up",
@@ -13,8 +13,8 @@
     "lint": "prettier --write .",
     "test:watch": "jest --watch",
     "test": "jest",
-    "migration:create": "node-pg-migrate -m infra/migration create",
-    "migration:up": "node-pg-migrate -m infra/migration --envPath .env.development up"
+    "migration:create": "node-pg-migrate -m infra/migrations create",
+    "migration:up": "node-pg-migrate -m infra/migrations --envPath ./.env.development up"
   },
   "dependencies": {
     "next": "15.1.7",

@@ -5,6 +5,7 @@ it("GET to /api/v1/status should return 200", async () => {
     expect(response.status).toBe(200);
 });
 
+
 it("GET to /api/v1/status should correct Body", async () => {
     const response = await fetch("http://localhost:3000/api/v1/status");
 
