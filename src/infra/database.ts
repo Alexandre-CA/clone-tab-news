@@ -1,7 +1,7 @@
-import { Client, QueryResult } from 'pg'
+import { Client } from 'pg'
 
-async function query(queryObject: string | { text: string, values?: any[] }) {
-    let result: QueryResult<any> = { rows: [] } as any
+async function query(queryObject: string | { text: string, values?: object[] }) {
+    let result = { rows: [] }
     let client;
     try {
         client = await getNewClient()
