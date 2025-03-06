@@ -1,5 +1,5 @@
 
-import database from "infra/database";
+import database from "@/infra/database";
 
 beforeAll(async () => {
     await database.query("DROP SCHEMA public CASCADE; CREATE SCHEMA public;");

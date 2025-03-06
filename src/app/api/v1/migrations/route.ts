@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import migrationsRunner, { RunnerOption } from 'node-pg-migrate';
 import { join } from 'path';
-import database from '@infra/database';
+import database from '@/infra/database';
 import { Client } from 'pg';
 
 const getMigrationsDefaultOption = async (): Promise<RunnerOption & { dbClient: Client }> => {
@@ -9,7 +9,7 @@ const getMigrationsDefaultOption = async (): Promise<RunnerOption & { dbClient: 
 
   return {
     dbClient: dbClient,
-    dir: join("infra", "migrations"),
+    dir: join("src","infra", "migrations"),
     dryRun: true,
     migrationsTable: 'local',
     verbose: true,
