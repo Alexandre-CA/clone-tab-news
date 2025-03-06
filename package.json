@@ -11,12 +11,13 @@
     "services:down": "docker compose -f infra/compose.yaml down",
     "lint:check": "prettier --check .",
     "lint": "prettier --write .",
-    "test:watch": "jest --watch",
-    "test": "jest",
+    "test:watch": "jest --watch  --runInBand",
+    "test": "jest --runInBand",
     "migration:create": "node-pg-migrate -m infra/migrations create",
     "migration:up": "node-pg-migrate -m infra/migrations --envPath ./.env.development up"
   },
   "dependencies": {
+    "dotenv-expand": "^12.0.1",
     "next": "15.1.7",
     "pg": "^8.13.3",
     "prettier": "^3.5.1",
