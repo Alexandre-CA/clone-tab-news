@@ -37,6 +37,8 @@ export async function POST() {
   })
   migrationOption.dbClient?.end()
 
+  console.log(migrations)
+
   if (migrations.length <= 0) {
     return NextResponse.json(migrations, {
       status: 201

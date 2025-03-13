@@ -1,7 +1,11 @@
-
 import database from "@/infra/database";
+import orchestrator from "@/test/orchestrator";
 
 beforeAll(async () => {
+    await orchestrator.waitForAllServices();
+})
+
+beforeEach(async () => {
     await database.query("DROP SCHEMA public CASCADE; CREATE SCHEMA public;");
 })
 

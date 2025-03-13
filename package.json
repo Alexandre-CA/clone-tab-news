@@ -3,20 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "npm run services:up && npm run wait-for-postgres && npm run migration:up && next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "services:up": "docker compose -f infra/compose.yaml up",
-    "services:stop": "docker compose -f infra/compose.yaml stop",
-    "services:down": "docker compose -f infra/compose.yaml down",
+    "services:up": "docker compose -f src/infra/compose.yaml up -d",
+    "services:stop": "docker compose -f src/infra/compose.yaml stop",
+    "services:down": "docker compose -f src/infra/compose.yaml down",
     "lint:check": "prettier --check .",
     "lint": "prettier --write .",
-    "test:watch": "jest --watch  --runInBand",
-    "test": "jest --runInBand",
+    "test:watch": "npm run services:up && npm run wait-for-postgres && concurrently --names next,jest --hide next 'next dev --turbopack' 'jest --watch --runInBand'",
+    "test": "npm run services:up && npm run wait-for-postgres && concurrently --names next,jest --hide next --kill-others --success command-jest 'next dev --turbopack' 'jest --runInBand'",
     "migration:create": "node-pg-migrate -m src/infra/migrations create",
-    "migration:up": "node-pg-migrate -m src/infra/migrations --envPath ./.env.development up"
+    "migration:up": "node-pg-migrate -m src/infra/migrations --envPath ./.env.development up",
+    "wait-for-postgres": "ts-node src/infra/scripts/wait-for-postgres.ts"
   },
   "dependencies": {
+    "async-retry": "^1.3.3",
     "dotenv-expand": "^12.0.1",
     "next": "15.1.7",
     "pg": "^8.13.3",
@@ -29,11 +31,13 @@
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
+    "@types/async-retry": "^1.4.9",
     "@types/jest": "^29.5.14",
-    "@types/node": "^20",
+    "@types/node": "^20.17.24",
     "@types/pg": "^8.11.11",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^9.1.2",
     "dotenv": "^16.4.7",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
@@ -43,6 +47,6 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5"
+    "typescript": "^5.8.2"
   }
 }
