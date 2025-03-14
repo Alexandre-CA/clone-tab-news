@@ -9,7 +9,8 @@ const waitForAllServices = async () => {
         }
 
         return retry(fetchStatusPage, {
-            retries: 100
+            retries: 100,
+            maxTimeout:5000
         })
     }
     await waitForWebServer();
