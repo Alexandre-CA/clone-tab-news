@@ -15,4 +15,4 @@ exports.up = () => {};
  * @param run {() => void | undefined}
  * @returns {Promise<void> | void}
  */
-exports.down = () => {};
+  exports.down = () => {};

@@ -1,11 +1,10 @@
-import database from '@/infra/database';
+import database from "@/infra/database";
 
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
 // GET request handler
 export async function GET() {
-
-  const updatedAt = new Date().toISOString()
+  const updatedAt = new Date().toISOString();
 
   // Query the database for ther version
   const dbVersion = (await database.query("SHOW server_version")).rows[0] as { server_version: string };
@@ -21,14 +20,13 @@ export async function GET() {
     dependencies: {
       database: {
         version: dbVersion.server_version,
-        max_connections:  parseInt(dbMaxConnection.max_connections),
-        opened_connections: usedConnections.count
-      }
-    }
-
-  }
+        max_connections: parseInt(dbMaxConnection.max_connections),
+        opened_connections: usedConnections.count,
+      },
+    },
+  };
 
   return NextResponse.json(body, {
-    status: 200
+    status: 200,
   });
 }
