@@ -15,7 +15,7 @@
     "test": "npm run services:up && concurrently --names next,jest --hide next --kill-others --success command-jest \"next dev --turbopack\" \"jest --runInBand\"",
     "migration:create": "node-pg-migrate -m src/infra/migrations create",
     "migration:up": "node-pg-migrate -m src/infra/migrations --envPath ./.env.development up",
-    "wait-for-postgres": "ts-node src/infra/scripts/wait-for-postgres.ts"
+    "wait-for-postgres": "ts-node --compilerOptions '{\"module\":\"CommonJS\"}' src/infra/scripts/wait-for-postgres.ts"
   },
   "dependencies": {
     "async-retry": "^1.3.3",
